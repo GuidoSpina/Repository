@@ -1,0 +1,150 @@
+<style>
+
+body {
+  background-image: url('http://www.4usky.com/data/out/104/164943164-yellow-wallpapers.png')
+}
+
+.title {
+  text-align: center;
+  font-size: 40px;
+  font-family: Lato;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 20px;
+  font-family: Lato;
+}
+
+.quote {
+  color: #;
+}
+
+.container-box {
+  border-radius:5px;
+  margin:4% auto auto auto;
+  width: 40%;
+  padding: 1% 4% 2% 4%;
+  background-color: #ff471a;
+
+}
+
+.container-quote {
+  font-size: 22px;
+  font-family: Lato;
+  font-style: Italic;
+}
+
+.container-author {
+  padding-left: 75%;
+  padding-top: 6%
+}
+
+#newQuote {
+  display: block;
+  border-radius: 3px;
+  font-family: Lato;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 13px;
+  width: 30%;
+  height: 35px;
+  margin-left: 75%;
+  margin-top: 5%
+}
+
+#tweetQuote {
+  float: left;
+  display: block;
+  border-radius: 3px;
+  font-family: Lato;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 13px;
+  width: 30%;
+  height: 35px;
+  margin-left: -4%;
+  margin-top: %
+}
+
+.container-btn {
+
+}
+
+</style>
+
+<html>
+
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+
+<h2 class="title">Random Quote Generator</h2>
+<h4 class="subtitle">A project for the FreeCodeCamp challenge</h4>
+
+<div class="container-box">
+  <div class="container-quote">
+    <p class="quote" id ="quote"></p>
+
+    <div class="container-author" id="author">
+      <p></p>
+    </div> <!--closing div for container author-->
+
+    <div class="row">
+      <div class="col-md-6">
+      <button id="tweetQuote">Tweet this quote!</button>
+      </div>
+
+      <div class="col-md-6">
+      <button id="newQuote">Get another quote</button>
+      </div>
+
+</div> <!--row-->
+
+
+</div> <!--closing div for container quote-->
+
+
+</div> <!--closing div for container-->
+ </html>
+
+ <script>
+
+ //setting html elements to variables
+var $newQuote = $('#newQuote');
+var $quote = $('#quote');
+var $tweetQuote = $('#tweetQuote');
+
+//execute function by clicking on button
+ $newQuote.click(getQuote);
+ $tweetQuote.click(tweetIt);
+
+
+//when getQuote is called call the APIs and get the quote by executing getQuoteFromAPI
+   function getQuote() {
+   $quote.empty();
+  getQuoteFromAPI();
+};
+
+getQuote();
+
+function getQuoteFromAPI() {
+
+var url='https://api.forismatic.com/api/1.0/?method=getQuote&format=jsonp&lang=ru&jsonp=?';
+
+//when the APIs are completely called execute the parseQuote function
+  $.getJSON(url).done(parseQuote);
+
+ //log the datas on the console and transform them into real html elements
+function parseQuote (response) {
+  console.log(response);
+  document.getElementById('quote').innerHTML = response.quoteText;
+
+  document.getElementById('author').innerHTML = response.quoteAuthor;
+  };
+};
+
+function tweetIt() {
+
+ window.open ( 'https://twitter.com/intent/tweet?text=' + $('#quote').text() + '-' + $('#author').text(), '_blank');
+};
+
+ </style>
